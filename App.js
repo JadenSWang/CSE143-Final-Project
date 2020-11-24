@@ -1,21 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react"
+import { NavigationContainer } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+
+// Screens
+import SummaryScreen from "./src/screens/SummaryScreen"
+
+// Components
+import TabBarIcon from "./src/components/TabBarIcon"
+
+const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
+
+const SummaryStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="SummaryScreen"
+      screenOptions={{
+        headerTintColor: "#fff",
+        headerTitleStyle: { fontWeight: "bold" },
+      }}
+    >
+      <Stack.Screen
+        name="SummaryScreen"
+        component={SummaryScreen}
+        options={{
+          headerStyle: { height: 0 },
+          title: "Focused List",
+        }}
+      />
+    </Stack.Navigator>
+  )
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="SummaryStack" component={SummaryStack} options={{ title: "Summary", tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-list" /> }} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
