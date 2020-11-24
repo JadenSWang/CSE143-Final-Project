@@ -1,12 +1,12 @@
 import * as React from "react"
 import { StyleSheet, View, Text } from "react-native"
 
-const SummaryScreen = () => {
+const InputScreen = () => {
   React.useEffect(() => {}, [])
   return (
     <>
       <View style={styles.container}>
-        <Text>Hello There, Welcome to the Summary Screen</Text>
+        <Text>Hello There, Welcome to the Input Screen</Text>
       </View>
     </>
   )
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SummaryScreen
+export default InputScreen
