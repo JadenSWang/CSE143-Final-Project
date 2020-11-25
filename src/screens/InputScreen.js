@@ -1,5 +1,6 @@
 import * as React from "react"
 import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native"
+import {FetchFood} from "../classes/fetchData"
 
 const InputScreen = () => {
   const [barcodeInputValue, setBarcodeInputValue] = React.useState()
@@ -7,38 +8,11 @@ const InputScreen = () => {
 
   const [foodItem, setFoodItem] = React.useState();
 
+  const dataFetcher = new FetchFood();
+
   React.useEffect(() => {
+
   }, [])
-
-  const getNutritionFromBarcode = (upc) => {
-    const app_id = "37258125"
-    const app_key = "523ab7a940442e6dbcee45599240648f"
-    const url = "https://api.edamam.com/api/food-database/v2/parser?app_id={app_id}&app_key={app_key}&upc={upc}";
-
-    fetch(url.replace("{app_id}", app_id).replace("{app_key}", app_key).replace("{upc}", upc))
-      .then((response) => response.json())
-      .then((json) => {
-        setFoodItem(json)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const getNutritionFromKeyword = (ingr) => {
-    const app_id = "37258125"
-    const app_key = "523ab7a940442e6dbcee45599240648f"
-    const url = "https://api.edamam.com/api/food-database/v2/parser?app_id={app_id}&app_key={app_key}&ingr={ingr}";
-
-    fetch(url.replace("{app_id}", app_id).replace("{app_key}", app_key).replace("{ingr}", ingr))
-      .then((response) => response.json())
-      .then((json) => {
-        setFoodItem(json)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <>
@@ -49,18 +23,28 @@ const InputScreen = () => {
           onChangeText={(text) => setBarcodeInputValue(text)}
           value={barcodeInputValue}
         />
-        <Button title={"Search"} onPress={() => {getNutritionFromBarcode(barcodeInputValue)}}></Button>
+        <Button title={"Search"} onPress={async () => {
+          const data = await dataFetcher.getNutritionFromBarcode(keywordInputValue)
+          setFoodItem(data);
+        }}/>
         <Text>Keyword Search</Text>
         <TextInput
           style={{ height: 40, borderColor: "gray", borderBottomWidth: 1, width: 100 }}
           onChangeText={(text) => setKeywordInputValue(text)}
           value={keywordInputValue}
         />
-        <Button title={"Search"} onPress={() => {getNutritionFromKeyword(keywordInputValue)}}></Button>
-        {foodItem != undefined ? <Text>{"Category:" + foodItem.hints[0].food.category}</Text> : <></>}
-        {foodItem != undefined ? <Text>{"Label:" + foodItem.hints[0].food.label}</Text> : <></>}
-        {foodItem != undefined ? <Text>{"Image SRC:" + foodItem.hints[0].food.image}</Text> : <></>}
-        {foodItem != undefined ? <Image source={{uri: foodItem.hints[0].food.image}} style = {{height: 200, width: 200, resizeMode: 'stretch', margin: 5 }} /> : <></>}
+        <Button title={"Search"} onPress={async () => {
+          const data = await dataFetcher.getFirstNutritionFromKeyword(keywordInputValue)
+          setFoodItem(data);
+        }}/>
+        {foodItem != undefined ? <Text>{"Category:" + foodItem.getCategory()}</Text> : <></>}
+        {foodItem != undefined ? <Text>{"Label:" + foodItem.getLabel()}</Text> : <></>}
+        {foodItem != undefined ? <Image source={{uri: foodItem.getImage()}} style = {{height: 200, width: 200, resizeMode: 'stretch', margin: 5 }} /> : <></>}
+        <Button title={"Add This Item"} onPress={() => {
+          if(foodItem != undefined) {
+            
+          }
+        }}/>
       </View>
     </>
   )
