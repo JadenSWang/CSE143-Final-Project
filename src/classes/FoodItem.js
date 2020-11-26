@@ -4,14 +4,26 @@ export default class FoodItem {
     }
 
     getImage() {
-        return this.json.hints[0].food.image
+        return this.json.food.image
     }
 
     getLabel() {
-        return this.json.hints[0].food.label
+        return this.json.food.label
     }
 
     getCategory() {
-        return this.json.hints[0].food.category
+        return this.json.food.category
+    }
+
+    getId() {
+        return this.json.food.foodId
+    }
+
+    getNutrients() {
+        return this.json.food.nutrients
+    }
+
+    getCalories() {
+        return this.getNutrients().ENERC_KCAL
     }
 }

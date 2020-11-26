@@ -1,10 +1,10 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
 
-import InputScreen from "../screens/InputScreen"
+import SearchScreen from "../screens/SearchScreen"
 const Stack = createStackNavigator()
 
-const InputStack = () => {
+const SearchStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="InputScreen"
@@ -15,7 +15,7 @@ const InputStack = () => {
     >
       <Stack.Screen
         name="InputScreen"
-        component={InputScreen}
+        component={SearchScreen}
         options={{
           headerStyle: { height: 0 },
           title: "Focused List",
@@ -25,4 +25,4 @@ const InputStack = () => {
   )
 }
 
-export default InputStack
+export default SearchStack

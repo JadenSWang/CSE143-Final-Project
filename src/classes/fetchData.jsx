@@ -30,7 +30,6 @@ export class FetchFood{
     };
 
     getNutritionFromKeyword(ingr) {
-        console.log(this.generateIngrUrl(ingr))
         return fetch(this.generateIngrUrl(ingr))
         .then((response) => response.json())
         .catch(() => {
@@ -40,9 +39,11 @@ export class FetchFood{
 
     async getFirstNutritionFromKeyword(ingr) {
         return this.getNutritionFromKeyword(ingr).then((response) => {
-            if(response instanceof Array)
-                response = response[0]
-            return new FoodItem(response);
+            if(response != undefined) {
+                if(response.hints instanceof Array)
+                    response = response.hints[0]
+                return new FoodItem(response);
+            }
         })
     }
 }

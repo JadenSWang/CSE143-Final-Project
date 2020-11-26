@@ -1,13 +1,17 @@
 import * as React from "react"
 import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native"
-import {FetchFood} from "../classes/fetchData"
+import { FetchFood } from "../classes/fetchData"
 
-const InputScreen = () => {
+// state
+import { connect } from "react-redux"
+import { addFoodItem } from "../state/actions";
+
+
+const SearchScreen = (props) => {
   const [barcodeInputValue, setBarcodeInputValue] = React.useState()
   const [keywordInputValue, setKeywordInputValue] = React.useState()
 
   const [foodItem, setFoodItem] = React.useState();
-
   const dataFetcher = new FetchFood();
 
   React.useEffect(() => {
@@ -39,10 +43,11 @@ const InputScreen = () => {
         }}/>
         {foodItem != undefined ? <Text>{"Category:" + foodItem.getCategory()}</Text> : <></>}
         {foodItem != undefined ? <Text>{"Label:" + foodItem.getLabel()}</Text> : <></>}
+        {foodItem != undefined ? <Text>{"Calories:" + foodItem.getCalories()}</Text> : <></>}
         {foodItem != undefined ? <Image source={{uri: foodItem.getImage()}} style = {{height: 200, width: 200, resizeMode: 'stretch', margin: 5 }} /> : <></>}
         <Button title={"Add This Item"} onPress={() => {
           if(foodItem != undefined) {
-            
+            props.addFoodItem(foodItem);
           }
         }}/>
       </View>
@@ -59,4 +64,12 @@ const styles = StyleSheet.create({
   },
 })
 
-export default InputScreen
+const mapStateToProps = (state) => {
+	return {
+    today: []
+	};
+};
+
+export default connect(mapStateToProps, {
+  addFoodItem
+})(SearchScreen);
