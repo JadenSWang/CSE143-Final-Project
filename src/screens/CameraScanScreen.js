@@ -5,9 +5,11 @@ import { BarCodeScanner } from "expo-barcode-scanner"
 
 // state
 import { connect } from "react-redux"
+import { setCurrentSelectedItemByUpc } from "../state/actions"
 
 const CameraScanScreen = (props) => {
   const [hasPermission, setHasPermission] = React.useState(null)
+  const [scanned, setScanned] = React.useState(false)
 
   React.useEffect(() => {
     ;(async () => {
@@ -18,6 +20,8 @@ const CameraScanScreen = (props) => {
 
   const handleBarCodeScanned = ({ _, data }) => {
     // add the data
+    setScanned(true)
+    props.setCurrentSelectedItemByUpc(data)
     props.navigation.pop()
   }
 
@@ -43,8 +47,11 @@ const CameraScanScreen = (props) => {
       />
       <View style={{ flex: 1 }}>
         <BarCodeScanner
-          barCodeTypes={[BarCodeScanner.Constants.BarCodeType.ean13, BarCodeScanner.Constants.BarCodeType.upc_e]}
-          onBarCodeScanned={handleBarCodeScanned}
+          barCodeTypes={[
+            BarCodeScanner.Constants.BarCodeType.ean13,
+            BarCodeScanner.Constants.BarCodeType.upc_e,
+          ]}
+          onBarCodeScanned={scanned ? () => {} : handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
         />
       </View>
@@ -53,9 +60,9 @@ const CameraScanScreen = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    today: [],
-  }
+  return {}
 }
 
-export default connect(mapStateToProps, {})(CameraScanScreen)
+export default connect(mapStateToProps, { setCurrentSelectedItemByUpc })(
+  CameraScanScreen
+)

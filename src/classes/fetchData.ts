@@ -31,11 +31,24 @@ export class FetchFood {
   }
 
   getNutritionFromBarcode(upc) {
-    fetch(this.generateUpcUrl(upc))
+    return fetch(this.generateUpcUrl(upc))
       .then((response) => response.json())
       .catch(() => {
         console.log("Something Went Wrong")
       })
+  }
+
+  getFirstNutritionFromBarcode(upc) {
+    return this.getNutritionFromBarcode(upc).then((response) => {
+      if (response.hints.length == 0) {
+        return null
+      }
+      
+      if (response != undefined) {
+        if (response.hints instanceof Array) response = response.hints[0]
+        return new FoodItem(response)
+      }
+    })
   }
 
   getNutritionFromKeyword(ingr) {
@@ -48,6 +61,10 @@ export class FetchFood {
 
   async getFirstNutritionFromKeyword(ingr): Promise<FoodItem> {
     return this.getNutritionFromKeyword(ingr).then((response) => {
+      if (response.hints.length == 0) {
+        return null
+      }
+
       if (response != undefined) {
         if (response.hints instanceof Array) response = response.hints[0]
         return new FoodItem(response)

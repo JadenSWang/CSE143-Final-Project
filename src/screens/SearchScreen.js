@@ -6,18 +6,16 @@ import {
   TextInput,
   Button as ReactButton,
 } from "react-native"
-import { FetchFood } from "../classes/fetchData"
 import { Card, Button, ListItem, Icon } from "react-native-elements"
 
 // state
 import { connect } from "react-redux"
-import { addFoodItem, setCurrentSelectedItem } from "../state/actions"
+import { addFoodItem, setCurrentSelectedItemByKeyword } from "../state/actions"
 
 const SearchScreen = (props) => {
-  const [keywordInputValue, setKeywordInputValue] = React.useState()
+  const [keywordInputValue, setKeywordInputValue] = React.useState("Pineapple")
 
-  const foodItem = props.foodItem;
-  const dataFetcher = new FetchFood()
+  const foodItem = props.foodItem
 
   React.useEffect(() => {}, [])
 
@@ -40,12 +38,10 @@ const SearchScreen = (props) => {
         />
         <ReactButton
           title={"Search"}
-          onPress={async () => {
-            const data = await dataFetcher.getFirstNutritionFromKeyword(
-              keywordInputValue
-            )
-            console.log(data);
-            props.setCurrentSelectedItem(data)
+          onPress={() => {
+            if (keywordInputValue != "") {
+              props.setCurrentSelectedItemByKeyword(keywordInputValue)
+            }
           }}
         />
         <ReactButton
@@ -134,5 +130,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   addFoodItem,
-  setCurrentSelectedItem,
+  setCurrentSelectedItemByKeyword,
 })(SearchScreen)

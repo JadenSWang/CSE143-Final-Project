@@ -1,4 +1,4 @@
-import { ADD_FOODITEM_TO_DATE, SET_CURRENT_FOODITEM } from "../actions/types"
+import { ADD_FOODITEM_TO_DATE } from "../actions/types"
 import { cloneDeep } from "lodash"
 
 import { getDayMonthYear } from "./helper"
