@@ -18,7 +18,6 @@ const SummaryStack = () => {
         component={SummaryScreen}
         options={{
           headerStyle: { height: 0 },
-          title: "Focused List",
         }}
       />
     </Stack.Navigator>

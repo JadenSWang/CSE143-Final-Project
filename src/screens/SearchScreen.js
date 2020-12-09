@@ -1,55 +1,116 @@
 import * as React from "react"
-import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native"
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Button as ReactButton,
+} from "react-native"
 import { FetchFood } from "../classes/fetchData"
+import { Card, Button, ListItem, Icon } from "react-native-elements"
 
 // state
 import { connect } from "react-redux"
-import { addFoodItem } from "../state/actions";
-
+import { addFoodItem, setCurrentSelectedItem } from "../state/actions"
 
 const SearchScreen = (props) => {
-  const [barcodeInputValue, setBarcodeInputValue] = React.useState()
   const [keywordInputValue, setKeywordInputValue] = React.useState()
 
-  const [foodItem, setFoodItem] = React.useState();
-  const dataFetcher = new FetchFood();
+  const foodItem = props.foodItem;
+  const dataFetcher = new FetchFood()
 
-  React.useEffect(() => {
+  React.useEffect(() => {}, [])
 
-  }, [])
+  const upperFirst = (word) =>
+    word.charAt(0).toUpperCase() + word.substring(1, word.length)
 
   return (
     <>
       <View style={styles.container}>
-        <Text>Barcode Search</Text>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderBottomWidth: 1, width: 100 }}
-          onChangeText={(text) => setBarcodeInputValue(text)}
-          value={barcodeInputValue}
-        />
-        <Button title={"Search"} onPress={async () => {
-          const data = await dataFetcher.getNutritionFromBarcode(keywordInputValue)
-          setFoodItem(data);
-        }}/>
         <Text>Keyword Search</Text>
         <TextInput
-          style={{ height: 40, borderColor: "gray", borderBottomWidth: 1, width: 100 }}
+          style={{
+            height: 40,
+            borderColor: "gray",
+            borderBottomWidth: 1,
+            width: 100,
+          }}
           onChangeText={(text) => setKeywordInputValue(text)}
           value={keywordInputValue}
         />
-        <Button title={"Search"} onPress={async () => {
-          const data = await dataFetcher.getFirstNutritionFromKeyword(keywordInputValue)
-          setFoodItem(data);
-        }}/>
-        {foodItem != undefined ? <Text>{"Category:" + foodItem.getCategory()}</Text> : <></>}
-        {foodItem != undefined ? <Text>{"Label:" + foodItem.getLabel()}</Text> : <></>}
-        {foodItem != undefined ? <Text>{"Calories:" + foodItem.getCalories()}</Text> : <></>}
-        {foodItem != undefined ? <Image source={{uri: foodItem.getImage()}} style = {{height: 200, width: 200, resizeMode: 'stretch', margin: 5 }} /> : <></>}
-        <Button title={"Add This Item"} onPress={() => {
-          if(foodItem != undefined) {
-            props.addFoodItem(foodItem);
-          }
-        }}/>
+        <ReactButton
+          title={"Search"}
+          onPress={async () => {
+            const data = await dataFetcher.getFirstNutritionFromKeyword(
+              keywordInputValue
+            )
+            console.log(data);
+            props.setCurrentSelectedItem(data)
+          }}
+        />
+        <ReactButton
+          title={"Scan"}
+          onPress={() => {
+            props.navigation.push("CameraScanScreen", {})
+          }}
+        />
+        {foodItem != undefined ? (
+          <>
+            <Card
+              containerStyle={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "90%",
+                height: "40%",
+              }}
+            >
+              <Card.Title>{upperFirst(foodItem.getLabel())}</Card.Title>
+              <Card.Divider />
+              <Card.Image
+                source={{ uri: foodItem.getImage() }}
+                style={{
+                  width: 200,
+                  height: 200,
+                }}
+              />
+              <Button
+                icon={<Icon name="code" color="#ffffff" />}
+                style={{ marginTop: 10 }}
+                buttonStyle={{
+                  borderRadius: 4,
+                  marginLeft: 0,
+                  marginRight: 0,
+                  marginBottom: 0,
+                }}
+                onPress={() => props.addFoodItem(foodItem)}
+                title="Add to List"
+              />
+            </Card>
+            <Card
+              containerStyle={{
+                display: "flex",
+                alignItems: "center",
+                width: "90%",
+                height: "20%",
+              }}
+            >
+              {foodItem.getNutrients().map((nutritionItem, i) => {
+                return (
+                  <ListItem key={i}>
+                    <ListItem.Subtitle style={{ fontSize: 13, marginTop: -20 }}>
+                      {nutritionItem.getName() +
+                        ": " +
+                        nutritionItem.getValue()}
+                    </ListItem.Subtitle>
+                  </ListItem>
+                )
+              })}
+            </Card>
+          </>
+        ) : (
+          <></>
+        )}
       </View>
     </>
   )
@@ -65,11 +126,13 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-	return {
-    today: []
-	};
-};
+  return {
+    today: [],
+    foodItem: state.foodItem,
+  }
+}
 
 export default connect(mapStateToProps, {
-  addFoodItem
-})(SearchScreen);
+  addFoodItem,
+  setCurrentSelectedItem,
+})(SearchScreen)

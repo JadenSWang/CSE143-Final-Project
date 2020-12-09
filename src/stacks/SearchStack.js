@@ -1,10 +1,12 @@
 import React from "react"
+import { Button } from "react-native"
 import { createStackNavigator } from "@react-navigation/stack"
 
 import SearchScreen from "../screens/SearchScreen"
+import CameraScanScreen from "../screens/CameraScanScreen"
 const Stack = createStackNavigator()
 
-const SearchStack = () => {
+const SearchStack = (props) => {
   return (
     <Stack.Navigator
       initialRouteName="InputScreen"
@@ -18,8 +20,12 @@ const SearchStack = () => {
         component={SearchScreen}
         options={{
           headerStyle: { height: 0 },
-          title: "Focused List",
         }}
+      />
+      <Stack.Screen
+        name="CameraScanScreen"
+        component={CameraScanScreen}
+        options={{ headerStyle: { height: 0 } }}
       />
     </Stack.Navigator>
   )
