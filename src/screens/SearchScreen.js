@@ -11,13 +11,12 @@ import { Card, Button, ListItem, Icon } from "react-native-elements"
 
 // state
 import { connect } from "react-redux"
-import { addFoodItem } from "../state/actions"
+import { addFoodItem, setCurrentSelectedItem } from "../state/actions"
 
 const SearchScreen = (props) => {
-  
   const [keywordInputValue, setKeywordInputValue] = React.useState()
 
-  const [foodItem, setFoodItem] = React.useState()
+  const foodItem = props.foodItem;
   const dataFetcher = new FetchFood()
 
   React.useEffect(() => {}, [])
@@ -45,7 +44,7 @@ const SearchScreen = (props) => {
             const data = await dataFetcher.getFirstNutritionFromKeyword(
               keywordInputValue
             )
-            setFoodItem(data)
+            setCurrentSelectedItem(data)
           }}
         />
         <ReactButton
@@ -76,7 +75,7 @@ const SearchScreen = (props) => {
               />
               <Button
                 icon={<Icon name="code" color="#ffffff" />}
-                style={{marginTop: 10}}
+                style={{ marginTop: 10 }}
                 buttonStyle={{
                   borderRadius: 4,
                   marginLeft: 0,
@@ -98,7 +97,7 @@ const SearchScreen = (props) => {
               {foodItem.getNutrients().map((nutritionItem, i) => {
                 return (
                   <ListItem key={i}>
-                    <ListItem.Subtitle style={{fontSize: 13, marginTop: -20}}>
+                    <ListItem.Subtitle style={{ fontSize: 13, marginTop: -20 }}>
                       {nutritionItem.getName() +
                         ": " +
                         nutritionItem.getValue()}
@@ -128,9 +127,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     today: [],
+    foodItem: state.foodItem,
   }
 }
 
 export default connect(mapStateToProps, {
   addFoodItem,
+  setCurrentSelectedItem,
 })(SearchScreen)

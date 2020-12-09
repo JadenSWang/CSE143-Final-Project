@@ -6,7 +6,7 @@ export class FetchFood {
   url_upc: string
   url_ingr: string
 
-  constructor(app_key, app_id) {
+  constructor(app_key?, app_id?) {
     if (app_key == undefined) {
       app_key = "523ab7a940442e6dbcee45599240648f"
       app_id = "37258125"
