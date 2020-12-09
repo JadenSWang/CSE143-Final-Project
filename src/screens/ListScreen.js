@@ -1,8 +1,9 @@
 import * as React from "react"
 import { StyleSheet, View, Text } from "react-native"
-import { Card, ListItem, Button, Icon, Image} from 'react-native-elements'
+import { Card, ListItem, Button, Icon, Image } from "react-native-elements"
 
-var imageURI = 'http://books.google.com/books/content?id=PCDengEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api'
+var imageURI =
+  "http://books.google.com/books/content?id=PCDengEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
 
 const ListScreen = () => {
   React.useEffect(() => {}, [])
@@ -11,23 +12,33 @@ const ListScreen = () => {
       <View style={styles.container}>
         <Image
           source={{ uri: imageURI }}
-          style={{ width: 200, height: 200 }}
+          style={{ width: "200px", height: "200px" }}
         />
         <Image
-          source={require('./images/pic.png')}
-          style={{ width: '200px', height: '200px' }}
+          source={require("./images/pic.png")}
+          style={{ width: "200px", height: "200px" }}
         />
         <Card>
           <Card.Title>HELLO WORLD</Card.Title>
-          <Card.Divider/>
-          <Card.Image source={require('./images/pic.jpg')} style={{ width: 200, height: 200 }} />
-          <Text style={{marginBottom: 10}}>
-              The idea with React Native Elements is more about component structure than actual design.
+          <Card.Divider />
+          <Card.Image
+            source={require("./images/pic.jpg")}
+            style={{ width: 200, height: 200 }}
+          />
+          <Text style={{ marginBottom: 10 }}>
+            The idea with React Native Elements is more about component
+            structure than actual design.
           </Text>
           <Button
-            icon={<Icon name='code' color='#ffffff' />}
-            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-            title='VIEW NOW' />
+            icon={<Icon name="code" color="#ffffff" />}
+            buttonStyle={{
+              borderRadius: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+            }}
+            title="VIEW NOW"
+          />
         </Card>
       </View>
     </>

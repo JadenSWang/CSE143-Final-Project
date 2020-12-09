@@ -18,7 +18,6 @@ const ListStack = () => {
         component={ListScreen}
         options={{
           headerStyle: { height: 0 },
-          title: "Focused List",
         }}
       />
     </Stack.Navigator>
