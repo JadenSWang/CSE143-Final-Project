@@ -22,7 +22,6 @@ export class FoodItem {
   json: EdamamReturn
 
   constructor(json) {
-    console.log(json)
     this.json = json
   }
 

@@ -1,4 +1,4 @@
-import { ADD_FOODITEM_TO_DATE } from "../actions/types"
+import { ADD_FOODITEM_TO_DATE, SET_CURRENT_FOODITEM } from "../actions/types"
 import { cloneDeep } from "lodash"
 
 import { getDayMonthYear } from "./helper"
@@ -9,7 +9,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_FOODITEM_TO_DATE: {
       const newState = cloneDeep(state)
-      const day = getDayMonthYear(action.payload.date);
+      const day = getDayMonthYear(action.payload.date)
 
       if (newState[day] == undefined) {
         newState[day] = [action.payload.toAdd]

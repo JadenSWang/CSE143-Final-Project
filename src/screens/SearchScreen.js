@@ -44,7 +44,8 @@ const SearchScreen = (props) => {
             const data = await dataFetcher.getFirstNutritionFromKeyword(
               keywordInputValue
             )
-            setCurrentSelectedItem(data)
+            console.log(data);
+            props.setCurrentSelectedItem(data)
           }}
         />
         <ReactButton

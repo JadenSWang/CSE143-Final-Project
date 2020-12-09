@@ -1,6 +1,5 @@
 export class FoodItem {
     constructor(json) {
-        console.log(json);
         this.json = json;
     }
     getImage() {
