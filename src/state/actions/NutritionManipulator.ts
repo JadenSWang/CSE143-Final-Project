@@ -9,6 +9,7 @@ const _storeDataToState = async (date, foodItem) => {
     let existing = await _fetchData(date)
     existing = existing ? existing : []
     existing.push(foodItem)
+    console.log(existing)
     await AsyncStorage.setItem(date, JSON.stringify(existing))
   } catch (error) {
     // Error saving data
@@ -42,6 +43,8 @@ export const addFoodItemToDate = (date, foodItem) => {
 }
 
 export const initializeFromStorage = () => {
+  // AsyncStorage.clear()
+
   return (dispatch) => {
     const data = {}
     AsyncStorage.getAllKeys().then((keys) => {
@@ -49,7 +52,11 @@ export const initializeFromStorage = () => {
         if(data[date] == undefined) {
           data[date] = []
         }
-        data[date].push(new FoodItem(await _fetchData(date)))
+
+        const dateData = await _fetchData(date)
+        dateData.map(foodItem => {
+          data[date].push(new FoodItem(foodItem))
+        })
       })
 
       dispatch({ type: INITIALIZE_FROM_STORAGE, payload: { data: data } })
