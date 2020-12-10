@@ -1,6 +1,6 @@
 import * as React from "react"
-import { StyleSheet, View, Text } from "react-native"
-import { Card, ListItem, Button, Icon, Image } from "react-native-elements"
+import { StyleSheet, View, Text, Image} from "react-native"
+import { Card, ListItem, Button, Icon } from "react-native-elements"
 
 var imageURI =
   "http://books.google.com/books/content?id=PCDengEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
@@ -21,10 +21,7 @@ const ListScreen = () => {
         <Card>
           <Card.Title>HELLO WORLD</Card.Title>
           <Card.Divider />
-          <Card.Image
-            source={require("./images/pic.jpg")}
-            style={{ width: 200, height: 200 }}
-          />
+          <Card.Image source={{ uri: imageURI }}/>
           <Text style={{ marginBottom: 10 }}>
             The idea with React Native Elements is more about component
             structure than actual design.

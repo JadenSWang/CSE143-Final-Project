@@ -17,7 +17,7 @@ const SummaryStack = () => {
         name="SummaryScreen"
         component={SummaryScreen}
         options={{
-          headerStyle: { height: 0 },
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
