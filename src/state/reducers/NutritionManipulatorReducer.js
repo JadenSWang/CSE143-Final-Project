@@ -1,4 +1,4 @@
-import { ADD_FOODITEM_TO_DATE } from "../actions/types";
+import { ADD_FOODITEM_TO_DATE, INITIALIZE_FROM_STORAGE } from "../actions/types";
 import { cloneDeep } from "lodash";
 import { getDayMonthYear } from "./helper";
 const INITIAL_STATE = {};
@@ -14,6 +14,9 @@ export default (state = INITIAL_STATE, action) => {
                 newState[day].push(action.payload.toAdd);
             }
             return newState;
+        }
+        case INITIALIZE_FROM_STORAGE: {
+            return action.payload.data;
         }
         default:
             return state;

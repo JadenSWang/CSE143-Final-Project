@@ -10,14 +10,16 @@ import { Card, Button, ListItem, Icon } from "react-native-elements"
 
 // state
 import { connect } from "react-redux"
-import { addFoodItem, setCurrentSelectedItemByKeyword } from "../state/actions"
+import {
+  addFoodItem,
+  setCurrentSelectedItemByKeyword,
+  initializeFromStorage,
+} from "../state/actions"
 
 const SearchScreen = (props) => {
   const [keywordInputValue, setKeywordInputValue] = React.useState("Pineapple")
 
   const foodItem = props.foodItem
-
-  React.useEffect(() => {}, [])
 
   const upperFirst = (word) =>
     word.charAt(0).toUpperCase() + word.substring(1, word.length)
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    today: [],
     foodItem: state.foodItem,
   }
 }
@@ -131,4 +132,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   addFoodItem,
   setCurrentSelectedItemByKeyword,
+  initializeFromStorage,
 })(SearchScreen)

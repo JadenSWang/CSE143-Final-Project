@@ -1,8 +1,17 @@
 import * as React from "react"
 import { StyleSheet, View, Text } from "react-native"
 
-const SummaryScreen = () => {
-  React.useEffect(() => {}, [])
+// state
+import { connect } from "react-redux"
+import { initializeFromStorage } from "../state/actions"
+import { AsyncStorage } from "react-native"
+
+const SummaryScreen = (props) => {
+  React.useEffect(() => {
+    // AsyncStorage.clear();
+    props.initializeFromStorage()
+  }, [])
+
   return (
     <>
       <View style={styles.container}>
@@ -21,4 +30,12 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SummaryScreen
+const mapStateToProps = (state) => {
+  return {
+    history: state.nutritionManipulator,
+  }
+}
+
+export default connect(mapStateToProps, {
+  initializeFromStorage,
+})(SummaryScreen)
