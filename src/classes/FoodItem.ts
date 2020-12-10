@@ -45,6 +45,10 @@ export class FoodItem {
     return this.json.food.nutrients
   }
 
+  getCalories(): string {
+    return this.getNutrients()[1].getValue();
+  }
+
   getNutrients(): NutrientItem[] {
     const toReturn = []
     const nutrientsRaw = this.getNutrientsRaw()

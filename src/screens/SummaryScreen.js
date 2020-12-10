@@ -28,16 +28,24 @@ const data = [
 
 import * as React from "react"
 import { StyleSheet, View } from "react-native"
-import { Text, Card, ListItem, Header, Button, Icon} from 'react-native-elements'
+import { Text, Card, ListItem, Header} from 'react-native-elements'
 
 var weeklyCalorieCount = 0; 
-data.map(function(item, key) {
+data.map(function(item) {
   var newItem = item;
   weeklyCalorieCount += newItem.calories;
 });
 
-const SummaryScreen = () => {
-  React.useEffect(() => {}, [])
+// state
+import { connect } from "react-redux"
+import { initializeFromStorage } from "../state/actions"
+
+const SummaryScreen = (props) => {
+  React.useEffect(() => {
+    // AsyncStorage.clear();
+    props.initializeFromStorage()
+  }, [])
+
   return (
     <>
       <Header
@@ -98,4 +106,12 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SummaryScreen
+const mapStateToProps = (state) => {
+  return {
+    history: state.nutritionManipulator,
+  }
+}
+
+export default connect(mapStateToProps, {
+  initializeFromStorage,
+})(SummaryScreen)

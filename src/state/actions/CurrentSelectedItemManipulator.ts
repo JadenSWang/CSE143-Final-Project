@@ -23,13 +23,3 @@ export const setCurrentSelectedItemByUpc = (upc: string) => {
     })
   }
 }
-
-// return (dispatch) => {
-//   const fetcher = new FetchFood()
-//   const foodItem = await fetcher.getNutritionFromBarcode(upc).then(() => {})
-
-//   dispatch({
-//     type: SET_CURRENT_FOODITEM,
-//     payload: { foodItem: foodItem },
-//   })
-// }
