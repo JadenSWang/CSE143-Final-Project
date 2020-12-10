@@ -38,6 +38,8 @@ export const addFoodItemToDate = (date, foodItem) => {
     };
 };
 export const initializeFromStorage = () => {
+    // AsyncStorage.clear()
+
     return (dispatch) => {
         const data = {};
         AsyncStorage.getAllKeys().then((keys) => {
