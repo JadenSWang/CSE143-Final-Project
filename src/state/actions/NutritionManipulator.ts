@@ -1,5 +1,5 @@
 import { ADD_FOODITEM_TO_DATE, INITIALIZE_FROM_STORAGE } from "../actions/types"
-import { AsyncStorage } from "react-native"
+import { AsyncStorage } from "@react-native-community/async-storage";
 
 import {FoodItem} from "../../classes/FoodItem"
 import { getDayMonthYear } from "../reducers/helper"
