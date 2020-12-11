@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "CSE143-Final-Project",
-    "slug": "CSE143-Final-Project",
+    "name": "CalTrack!",
+    "slug": "CalTrackExclaim",
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,17 +14,15 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nullpointerstudios.caltrack",
+      "buildNumber": "1.0.3"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "package": "com.nullpointerstudios.caltrack",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
