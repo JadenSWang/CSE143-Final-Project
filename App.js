@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 // Stacks
 import SummaryStack from "./src/stacks/SummaryStack"
 import SearchStack from "./src/stacks/SearchStack"
-import ListStack from "./src/stacks/ListStack"
 
 // Components
 import TabBarIcon from "./src/components/TabBarIcon"
@@ -30,16 +29,6 @@ export default function App() {
               title: "Summary",
               tabBarIcon: ({ focused }) => (
                 <TabBarIcon focused={focused} name="md-pie" />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="ListStack"
-            component={ListStack}
-            options={{
-              title: "List",
-              tabBarIcon: ({ focused }) => (
-                <TabBarIcon focused={focused} name="md-list" />
               ),
             }}
           />

@@ -6,7 +6,7 @@ import {
   TextInput,
   Button as ReactButton,
 } from "react-native"
-import { Card, Button, ListItem, Icon } from "react-native-elements"
+import { Card, Button, ListItem, Icon, Header } from "react-native-elements"
 
 // state
 import { connect } from "react-redux"
