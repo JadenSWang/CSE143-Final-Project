@@ -49,8 +49,11 @@ import { initializeFromStorage } from "../state/actions"
 const SummaryScreen = (props) => {
   React.useEffect(() => {
     // AsyncStorage.clear();
-    props.initializeFromStorage()
+    props.initializeFromStorage() 
   }, [])
+
+const newData = props.history[getDayMonthYear(new Date())];
+console.log(props.history);
 
   return (
     <>
