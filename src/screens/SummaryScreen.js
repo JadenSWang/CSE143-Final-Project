@@ -1,36 +1,3 @@
-const data = [
-  {
-    name: "Hotdog",
-    avatar:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Hotdog_-_Evan_Swigart.jpg/1200px-Hotdog_-_Evan_Swigart.jpg",
-    calories: 500,
-  },
-  {
-    name: "Hamburger",
-    avatar:
-      "https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/165384.jpg",
-    calories: 1000,
-  },
-  {
-    name: "Salad",
-    avatar:
-      "https://cdn.loveandlemons.com/wp-content/uploads/2019/07/salad.jpg",
-    calories: 200,
-  },
-  {
-    name: "Pad Thai",
-    avatar:
-      "https://www.recipetineats.com/wp-content/uploads/2020/01/Chicken-Pad-Thai_9-SQ.jpg",
-    calories: 400,
-  },
-  {
-    name: "Kalua Pork",
-    avatar:
-      "https://www.cookingclassy.com/wp-content/uploads/2020/05/kalua-pork-1.jpg",
-    calories: 600,
-  },
-]
-
 import * as React from "react"
 import { StyleSheet, View } from "react-native"
 import { Text, Card, ListItem, Header } from "react-native-elements"

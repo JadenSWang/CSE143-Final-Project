@@ -26,6 +26,12 @@ const SearchScreen = (props) => {
 
   return (
     <>
+      <Header
+        centerComponent={{
+          text: "CalTrack - Everyday Calorie Tracker",
+          style: { color: "#fff" },
+        }}
+      />
       <View style={styles.container}>
         <Text>Keyword Search</Text>
         <TextInput
