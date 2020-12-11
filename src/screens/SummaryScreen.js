@@ -36,16 +36,11 @@ import { StyleSheet, View } from "react-native"
 import { Text, Card, ListItem, Header } from "react-native-elements"
 import { getDayMonthYear } from "../state/reducers/helper"
 
-var weeklyCalorieCount = 0
-data.map(function (item) {
-  var newItem = item
-  weeklyCalorieCount += newItem.calories
-})
-
 // state
 import { connect } from "react-redux"
 import { initializeFromStorage } from "../state/actions"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FoodItem } from "../classes/FoodItem"
 
 const SummaryScreen = (props) => {
   React.useEffect(() => {
@@ -53,8 +48,22 @@ const SummaryScreen = (props) => {
     props.initializeFromStorage() 
   }, [])
 
-const newData = props.history[getDayMonthYear(new Date())];
-console.log(props.history);
+  const [weeklyCalorieCount, setWeeklyCalorieCount] = React.useState(0);
+
+  const newData = props.history[getDayMonthYear(new Date())]
+  React.useEffect(() => {
+    if (newData !== undefined) {
+      let calorieCount = 0;
+      newData.map(function (item) {
+        calorieCount += item.getCalories();
+        //console.log("Weekly Count:" + weeklyCalorieCount);
+      })
+      setWeeklyCalorieCount(calorieCount);
+    }
+  }, [props.history])
+
+
+
 
   return (
     <>
@@ -64,34 +73,36 @@ console.log(props.history);
           style: { color: "#fff" },
         }}
       />
-      <View style={styles.container}>
-        {/* Weekly Summary */}
-        <Card containerStyle={styles.card}>
-          <Card.Title>🍽️ Weekly Calorie Count</Card.Title>
-          <Card.Divider />
-          <Text h3 style={styles.h3}>
-            {weeklyCalorieCount}
-          </Text>
-          <Text style={styles.subtitleText}>kcal</Text>
-        </Card>
-        {/* Most Recent Eats */}
-        <Card containerStyle={styles.card}>
-          <Card.Title>🍳 Your 5 Most Recent Eats</Card.Title>
-          <Card.Divider />
-          {data.map((u, i) => {
-            var calories = u.calories
-            return (
-              <ListItem
-                key={i}
-                roundAvatar
-                title={u.name}
-                subtitle={"Calories: " + calories}
-                leftAvatar={{ source: { uri: u.avatar } }}
-              />
-            )
-          })}
-        </Card>
-      </View>
+      {newData === undefined? <></>:
+            <View style={styles.container}>
+            {/* Weekly Summary */}
+            <Card containerStyle={styles.card}>
+              <Card.Title>🍽️ Weekly Calorie Count</Card.Title>
+              <Card.Divider />
+              <Text h3 style={styles.h3}>
+                {weeklyCalorieCount}
+              </Text>
+              <Text style={styles.subtitleText}>kcal</Text>
+            </Card>
+            {/* Most Recent Eats */}
+            <Card containerStyle={styles.card}>
+              <Card.Title>🍳 Your 5 Most Recent Eats</Card.Title>
+              <Card.Divider />
+              {newData.map((u, i) => {
+                var calories = u.getCalories()
+                return (
+                  <ListItem
+                    key={i}
+                    roundAvatar
+                    title={u.getLabel()}
+                    subtitle={"Calories: " + calories}
+                    leftAvatar={{ source: { uri: u.getImage() } }}
+                  />
+                )
+              })}
+            </Card>
+          </View>
+      }
     </>
   )
 }
