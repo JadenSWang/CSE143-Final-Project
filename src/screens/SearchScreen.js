@@ -6,7 +6,7 @@ import {
   TextInput,
   Button as ReactButton,
 } from "react-native"
-import { Card, Button, ListItem, Icon } from "react-native-elements"
+import { Card, Button, ListItem, Icon, Header } from "react-native-elements"
 
 // state
 import { connect } from "react-redux"
@@ -26,6 +26,12 @@ const SearchScreen = (props) => {
 
   return (
     <>
+      <Header
+        centerComponent={{
+          text: "CalTrack - Everyday Calorie Tracker",
+          style: { color: "#fff" },
+        }}
+      />
       <View style={styles.container}>
         <Text>Keyword Search</Text>
         <TextInput
