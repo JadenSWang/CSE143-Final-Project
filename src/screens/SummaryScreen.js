@@ -56,7 +56,6 @@ const SummaryScreen = (props) => {
       let calorieCount = 0;
       newData.map(function (item) {
         calorieCount += item.getCalories();
-        //console.log("Weekly Count:" + weeklyCalorieCount);
       })
       setWeeklyCalorieCount(calorieCount);
     }
@@ -86,7 +85,7 @@ const SummaryScreen = (props) => {
             </Card>
             {/* Most Recent Eats */}
             <Card containerStyle={styles.card}>
-              <Card.Title>🍳 Your 5 Most Recent Eats</Card.Title>
+              <Card.Title>🍳 What You Ate Today </Card.Title>
               <Card.Divider />
               {newData.map((u, i) => {
                 var calories = u.getCalories()
