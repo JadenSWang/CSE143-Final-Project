@@ -45,6 +45,7 @@ data.map(function (item) {
 // state
 import { connect } from "react-redux"
 import { initializeFromStorage } from "../state/actions"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SummaryScreen = (props) => {
   React.useEffect(() => {
