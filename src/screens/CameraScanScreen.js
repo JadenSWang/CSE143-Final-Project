@@ -2,13 +2,14 @@ import * as React from "react"
 import { View, Text, StyleSheet, Button } from "react-native"
 import { Header } from "react-native-elements"
 import { BarCodeScanner } from "expo-barcode-scanner"
+import { usePermissions } from "expo-permissions"
 
 // state
 import { connect } from "react-redux"
 import { setCurrentSelectedItemByUpc } from "../state/actions"
 
 const CameraScanScreen = (props) => {
-  const [hasPermission, setHasPermission] = React.useState(null)
+  const [hasPermission, setHasPermission] = React.useState(false)
   const [scanned, setScanned] = React.useState(false)
 
   React.useEffect(() => {
